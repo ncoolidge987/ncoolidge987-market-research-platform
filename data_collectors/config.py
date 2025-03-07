@@ -6,16 +6,16 @@ Module-specific settings are kept in their respective config.py files.
 
 import os
 
-class Config:
+class CollectorConfig:
     """Base configuration for the main application."""
-    
+
     # Base directory of the application
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
-    
+
     # Flask configuration
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key-for-development-only')
     DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-    
+
     # Path definitions
-    DATA_DIR = os.path.join(BASEDIR, 'data')
+    DATA_DIR = os.path.join(os.path.abspath(os.path.join(BASEDIR, "..")), 'data')
     LOGS_DIR = os.path.join(BASEDIR, 'logs')

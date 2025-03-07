@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 Weekly Export Sales Data Collection Script
 This script runs the data collection process for USDA Weekly Export Sales data.
@@ -27,9 +26,8 @@ from data_collectors.weekly_export_sales.config import WeeklyExportCollectorConf
 
 def main():
     """Main function to run the data collection process."""
-    # Ensure directories exist
-    WeeklyExportCollectorConfig.ensure_directories()
-    
+
+
     # Configure logging for direct execution
     logging.basicConfig(
         level=logging.INFO,
@@ -37,9 +35,9 @@ def main():
         filename=WeeklyExportCollectorConfig.LOG_PATH,
         filemode='a'
     )
-    
+
     logging.info(f"=== Starting Weekly Export Sales data collection at {datetime.now()} ===")
-    
+
     try:
         collect_data()
         logging.info(f"=== Weekly Export Sales data collection completed successfully at {datetime.now()} ===")

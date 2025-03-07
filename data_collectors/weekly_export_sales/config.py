@@ -15,12 +15,12 @@ from data_collectors.config import CollectorConfig
 
 class WeeklyExportCollectorConfig(CollectorConfig):
     """Configuration for Weekly Export Sales data collector."""
-    
+
     # Module-specific paths
     MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
     DB_PATH = os.path.join(CollectorConfig.DATA_DIR, 'weekly_export_sales', 'weekly_export_sales.db')
-    LOG_PATH = os.path.join(CollectorConfig.COLLECTOR_LOGS_DIR, 'weekly_export_sales.log')
-    
+    LOG_PATH = os.path.join(CollectorConfig.LOGS_DIR, 'weekly_export_sales.log')
+
     # API settings
     BASE_URL = "https://api.fas.usda.gov/api/esr"
     API_KEYS = [
@@ -31,14 +31,8 @@ class WeeklyExportCollectorConfig(CollectorConfig):
         "H6UpwAmkElhx1Vjv3N3f0aBcBGND5KekrBTEXoFP"
     ]
     RATE_LIMIT_THRESHOLD = 50
-    
+
     # Request settings
     TIMEOUT = 120
     RETRY_DELAY = 5
-    
-    # Ensure module-specific directories exist
-    @classmethod
-    def ensure_directories(cls):
-        """Ensure required directories exist."""
-        super().ensure_directories()
-        os.makedirs(os.path.dirname(cls.DB_PATH), exist_ok=True)
+    MAX_RETRIES = 5
