@@ -1,0 +1,187 @@
+/* 
+ * Styles specific to the Weekly Export Sales report page
+ */
+
+/* Report Header */
+.report-header {
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.commodity-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.report-date {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.report-generated {
+    font-size: 0.85rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* Report Sections */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Report Tables */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.report-table th,
+.report-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.report-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+}
+
+.report-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.report-table tr:hover {
+    background-color: #f0f0f0;
+}
+
+.highlight-row {
+    background-color: #f2f8ff !important;
+}
+
+/* Export Options */
+.export-options {
+    transition: all 0.3s ease;
+}
+
+.export-options .btn {
+    text-align: left;
+}
+
+/* Loading Indicator */
+.loading {
+    display: none;
+    text-align: center;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 300px;
+}
+
+.loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .nav-tabs,
+    .footer,
+    .col-lg-3,
+    .alert-info,
+    .btn,
+    .form-select,
+    .form-label {
+        display: none !important;
+    }
+    
+    .col-lg-9 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+    
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .card-header {
+        background-color: #fff !important;
+        color: #000 !important;
+        padding-left: 0 !important;
+    }
+    
+    .report-table th {
+        background-color: #f5f5f5 !important;
+        color: #000 !important;
+    }
+    
+    .highlight-row {
+        background-color: #f5f5f5 !important;
+    }
+    
+    a {
+        text-decoration: none !important;
+        color: #000 !important;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .report-table {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1rem;
+    }
+    
+    .report-table th,
+    .report-table td {
+        padding: 6px 8px;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .commodity-name {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .report-table {
+        font-size: 0.8rem;
+    }
+    
+    .report-header {
+        text-align: center;
+    }
+    
+    .report-date,
+    .report-generated {
+        text-align: center;
+    }
+}

@@ -1,0 +1,108 @@
+/* 
+ * Styles specific to the Weekly Export Sales interactive visualization page
+ */
+
+/* Form Controls */
+.select-tall {
+    height: 250px !important;
+}
+
+/* Summary Box */
+.summary-box {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Plot Container */
+#plot-container {
+    min-height: 400px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Loading Indicator */
+.loading {
+    display: none;
+    text-align: center;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 300px;
+}
+
+.loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Alert styles */
+.alert {
+    border-radius: 5px;
+}
+
+.alert h4 {
+    margin-bottom: 1rem;
+}
+
+.alert ol, .alert ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+/* Summary content */
+#summary-content {
+    padding: 10px 0;
+}
+
+#summary-content p {
+    margin-bottom: 0.5rem;
+}
+
+#summary-content strong {
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    #plot-container {
+        min-height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .select-tall {
+        height: 150px !important;
+    }
+    
+    #plot-container {
+        min-height: 300px;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #plot-container {
+        min-height: 250px;
+    }
+    
+    .summary-box {
+        padding: 10px;
+    }
+}

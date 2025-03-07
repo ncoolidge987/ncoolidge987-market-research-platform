@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Export Reports - Market Research Platform{% endblock %}
+
+{% block module_css %}
+<link href="{{ url_for('weekly_export_sales.static', filename='css/report.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Weekly Export Sales Reports</h1>
+
+        <!-- Tabs navigation -->
+        <ul class="nav nav-tabs" id="exportTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link"
+                   id="visualization-tab"
+                   href="{{ url_for('weekly_export_sales.weekly_export_sales', tab='visualization') }}"
+                   role="tab">
+                   <i class="fa fa-chart-bar me-2"></i>Interactive Visualization
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active"
+                   id="report-tab"
+                   href="{{ url_for('weekly_export_sales.export_report') }}"
+                   role="tab"
+                   aria-selected="true">
+                   <i class="fa fa-file-alt me-2"></i>Export Reports
+                </a>
+            </li>
+        </ul>
+
+        <!-- Report content -->
+        <div class="row mt-4">
+            <!-- Left column for report controls -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Report Options</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="report-form">
+                            <div class="mb-3">
+                                <label for="report-commodity" class="form-label">Commodity</label>
+                                <select class="form-select" id="report-commodity" name="report-commodity">
+                                    <option value="">Select Commodity</option>
+                                    {% for commodity in commodities %}
+                                    <option value="{{ commodity.commodityCode }}">{{ commodity.commodityName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="report-format" class="form-label">Report Format</label>
+                                <select class="form-select" id="report-format" name="report-format">
+                                    <option value="weekly">Weekly Summary</option>
+                                    <option value="monthly">Monthly Summary</option>
+                                    <option value="yearly">Marketing Year Comparison</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="report-view" class="form-label">View Type</label>
+                                <select class="form-select" id="report-view" name="report-view">
+                                    <option value="all">All Metrics</option>
+                                    <option value="exports">Exports Only</option>
+                                    <option value="sales">Sales Only</option>
+                                    <option value="commitments">Commitments Only</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100" id="generate-report">Generate Report</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card mt-4 export-options" style="display: none;">
+                    <div class="card-header">
+                        <h5 class="mb-0">Export Options</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-outline-secondary w-100 mb-2" id="export-pdf">
+                                <i class="fa fa-file-pdf me-2"></i>Export as PDF
+                            </button>
+                            <button class="btn btn-outline-secondary w-100 mb-2" id="export-excel">
+                                <i class="fa fa-file-excel me-2"></i>Export as Excel
+                            </button>
+                            <button class="btn btn-outline-secondary w-100" id="print-report">
+                                <i class="fa fa-print me-2"></i>Print Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column for report display -->
+            <div class="col-lg-9">
+                <div id="report-container">
+                    <div class="alert alert-info">
+                        <h4>Export Sales Report Generator</h4>
+                        <p>Select a commodity and report options to generate a structured report of export sales data.</p>
+                        <p>This feature provides detailed analysis similar to current PDF reports.</p>
+                    </div>
+
+                    <!-- Placeholder for report content -->
+                    <div class="card mt-4" style="display: none;" id="report-placeholder">
+                        <div class="card-header report-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Weekly Export Sales Report</h5>
+                                    <p class="commodity-name" id="report-commodity-name">Commodity</p>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    <p class="report-date">Week Ending: <span id="report-week">Date</span></p>
+                                    <p class="text-muted report-generated">Generated: <span id="generation-date"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-secondary">
+                                <p>The report generator functionality will be implemented in a future update.</p>
+                                <p>This section will provide structured, printer-friendly reports that follow the format of current PDF exports.</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="section-title">Weekly Highlights:</h6>
+                                    <ul>
+                                        <li>Top destination: [Country]</li>
+                                        <li>Week-over-week change: [Value]</li>
+                                        <li>Year-over-year comparison: [Value]</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h6 class="section-title">Summary Tables:</h6>
+                                    <div class="table-responsive">
+                                        <table class="report-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <th>Current Week</th>
+                                                    <th>Previous Week</th>
+                                                    <th>% Change</th>
+                                                    <th>Year to Date</th>
+                                                    <th>Last Year</th>
+                                                    <th>% Change</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Sample Country 1</td>
+                                                    <td>1,000</td>
+                                                    <td>900</td>
+                                                    <td>+11.1%</td>
+                                                    <td>10,000</td>
+                                                    <td>9,500</td>
+                                                    <td>+5.3%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sample Country 2</td>
+                                                    <td>500</td>
+                                                    <td>450</td>
+                                                    <td>+11.1%</td>
+                                                    <td>5,000</td>
+                                                    <td>4,800</td>
+                                                    <td>+4.2%</td>
+                                                </tr>
+                                                <tr class="highlight-row">
+                                                    <td><strong>Total</strong></td>
+                                                    <td><strong>1,500</strong></td>
+                                                    <td><strong>1,350</strong></td>
+                                                    <td><strong>+11.1%</strong></td>
+                                                    <td><strong>15,000</strong></td>
+                                                    <td><strong>14,300</strong></td>
+                                                    <td><strong>+4.9%</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Generating report, please wait...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block module_scripts %}
+<script src="{{ url_for('weekly_export_sales.static', filename='js/report.js') }}"></script>
+{% endblock %}
